@@ -22,29 +22,43 @@ function main() {
 		})
 	}
 
-	// get lengths of each word, put into array, and calculate average
-	function getAvgWordLengths(){
-		var wordLengths = submittedByWord.map(function(word){
-			return word.length;
+	// // get lengths of each word, put into array, and calculate average
+	// function getAvgWordLengths(){
+	// 	var wordLengths = submittedByWord.map(function(word){
+	// 		return word.length;
+	// 	})
+	// 	var totalWordLengths = wordLengths.reduce(function(length, carry){
+	// 		return length + carry;
+	// 	})
+	// 	return totalWordLengths / submittedByWord.length;
+	// }
+
+	// // take sentences and counts the length of each
+	// function getAvgSentenceLengths(){
+	// 	var sentenceLengths = submittedBySentence.map(function(sentence){
+	// 		return sentence.length; 
+	// 	})
+	// 	var totalSentenceLengths = sentenceLengths.reduce(function(length, carry){
+	// 		return length + carry;
+	// 	})
+	// 	return totalSentenceLengths / submittedBySentence.length;
+	// }
+	// can simplify above two functions by creating single function to calculate average of array
+	function getAverage(submitted){
+		var itemLength;
+		var totalAllLengths;
+		
+		itemLength = submitted.map(function(item){
+			return item.length;
 		})
-		var totalWordLengths = wordLengths.reduce(function(length, carry){
+		totalAllLengths = itemLength.reduce(function(length, carry){
 			return length + carry;
 		})
-		return totalWordLengths / submittedByWord.length;
+		return totalAllLengths / submitted.length;
 	}
 
-	// take sentences and counts the length of each
-	function getAvgSentenceLengths(){
-		var sentenceLengths = submittedBySentence.map(function(sentence){
-			return sentence.length; 
-		})
-		var totalSentenceLengths = sentenceLengths.reduce(function(length, carry){
-			return length + carry;
-		})
-		return totalSentenceLengths / submittedBySentence.length;
-	}
-	// can simplify above two functions by creating single function to calculate average of array
-	
+
+
 	// on submit reveal text-report
 	function printAnalytics(){
 		$('.text-report dd').addClass('js-report-results');
@@ -56,13 +70,11 @@ function main() {
 
 		addResults('Word count', submittedByWord.length);
 		addResults('Unique word count', uniqueWordList.length);
-		addResults('Average word length', getAvgWordLengths().toFixed(2));
-		addResults('Average sentence length', getAvgSentenceLengths().toFixed(2));
+		addResults('Average word length', getAverage(submittedByWord).toFixed(2));
+		addResults('Average sentence length', getAverage(submittedBySentence).toFixed(2));
 
 		$('.text-report').removeClass('hidden');
 	}
 }
-	
-//
 
 $(document).ready(main);
