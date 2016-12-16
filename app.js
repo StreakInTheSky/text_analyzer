@@ -8,10 +8,10 @@ function main() {
 	$('form').submit(function(event){
 		event.preventDefault();
 		submittedByWord = $('#user-text').val().split(' ');
-		submittedBySentence = $('#user-text').val().split(/[\.\?\!\"]+\s+(?=[A-Z\"])/); //removes punctuation, need to find fix
+		submittedBySentence = $('#user-text').val().split(/[\.\?\!\"\s]+\s+(?=[A-Z\"])/); //removes punctuation, need to find fix
 		getUniqueWords();
 		getAvgWordLengths();
-		getSentenceLengths();
+		getAvgSentenceLengths();
 	})
 
 	// get each unique word and put into array
@@ -33,10 +33,14 @@ function main() {
 		return totalWordLengths / submittedByWord.length;
 	}
 	// take sentences and counts the length of each
-	function getSentenceLengths(){
-		return submittedBySentence.map(function(sentence){
+	function getAvgSentenceLengths(){
+		var sentenceLengths = submittedBySentence.map(function(sentence){
 			return sentence.length; 
 		})
+		var totalSentenceLengths = sentenceLengths.reduce(function(length, carry){
+			return length + carry;
+		})
+		return totalSentenceLengths / submittedBySentence.length;
 	}
 	
 	// on submit reveal text-report
