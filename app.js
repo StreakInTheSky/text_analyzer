@@ -1,34 +1,39 @@
 // prevent default on form submit
 function main() {
-	var submittedText;
+	var submittedByWord;
+	var submittedBySentence;
 	var uniqueWordList = [];
 	
 	// put user input into array
 	$('form').submit(function(event){
 		event.preventDefault();
-		submittedText = $('#user-text').val().split(' ');
+		submittedByWord = $('#user-text').val().split(' ');
+		submittedBySentence = $('#user-text').val().split(/[\.\?\!\"]+\s+(?=[A-Z\"])/);
 		getUniqueWords();
-		getAvgWordLengths().toFixed(2);
+		getAvgWordLengths();
 	})
 
 	// get each unique word and put into array
 	function getUniqueWords(){
-		submittedText.forEach(function(word){
-			if (uniqueWordList.indexOf(word) === -1) {
+		submittedByWord.forEach(function(word){
+			if (uniqueWordList.indexOf(word) === -1){
 				uniqueWordList.push(word);
 			}
 		})
 	}
-	// get length of each word and put into array
+	// get lengths of each word, put into array, and calculate average
 	function getAvgWordLengths(){
-		var wordLengths = submittedText.map(function(word){
+		var wordLengths = submittedByWord.map(function(word){
 			return word.length;
 		})
 		var totalWordLengths = wordLengths.reduce(function(length, carry){
 			return length + carry;
 		})
-		return totalWordLengths / submittedText.length;
+		return totalWordLengths / submittedByWord.length;
 	}
+	// put input into array of sentences
+
+	
 	// on submit reveal text-report
 }
 	
