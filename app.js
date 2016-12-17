@@ -45,8 +45,8 @@ function main() {
 
 		addResults('Word count', submittedByWord.length);
 		addResults('Unique word count', uniqueWordList.length);
-		addResults('Average word length', getAverage(submittedByWord).toFixed(2));
-		addResults('Average sentence length', getAverage(submittedBySentence).toFixed(2));
+		addResults('Average word length', getAverage(submittedByWord).toFixed(2) + ' characters');
+		addResults('Average sentence length', getAverage(submittedBySentence).toFixed(2) + ' characters');
 
 		$('.text-report').removeClass('hidden');
 	}
